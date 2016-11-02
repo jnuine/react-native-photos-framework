@@ -70,21 +70,21 @@ RCT_EXPORT_MODULE()
     imageOptions.resizeMode = PHImageRequestOptionsResizeModeNone;
   } else {
     targetSize = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(scale, scale));
-    imageOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
+    imageOptions.resizeMode = PHImageRequestOptionsResizeModeExact;
   }
 
   PHImageContentMode contentMode = PHImageContentModeAspectFill;
   if (resizeMode == RCTResizeModeContain) {
     contentMode = PHImageContentModeAspectFit;
   }
-  
-    
+
+
   NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:imageURL
                                                 resolvingAgainstBaseURL:NO];
   NSArray *queryItems = urlComponents.queryItems;
   NSString *deliveryModeQuery = [self valueForKey:@"deliveryMode"
                           fromQueryItems:queryItems];
-    
+
   __block PHImageRequestOptionsDeliveryMode deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     if(deliveryModeQuery != nil) {
         if([deliveryModeQuery isEqualToString:@"opportunistic"]) {
